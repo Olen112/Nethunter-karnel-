@@ -1,0 +1,23 @@
+#!/bin/bash
+
+# Install TigerVNC
+sudo apt update
+sudo apt install -y tigervnc-standalone-server tigervnc-xorg-extension tigervnc-viewer
+
+# Set up VNC password
+vncpasswd
+
+# Start the VNC server
+vncserver -localhost no -geometry 1920x1080
+
+# Download and install ngrok
+wget https://bin.equinox.io/c/4VmDzA7iaHb/ngrok-stable-linux-amd64.zip
+unzip ngrok-stable-linux-amd64.zip
+chmod +x ngrok
+sudo mv ngrok /usr/local/bin/
+
+# Authenticate ngrok with your token
+ngrok authtoken YOUR_AUTH_TOKEN
+
+# Expose VNC server with ngrok
+ngrok tcp 5901
